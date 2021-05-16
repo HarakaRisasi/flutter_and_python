@@ -35,19 +35,27 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: Text(
-        "Hello World!!",
-        style: GoogleFonts.lobster(
-          textStyle: TextStyle(
-            fontSize: 30.00,
-//            color: Color(0xFFA94AF3) // If I want to use the HEX color code.
-            color: Colors.yellowAccent,
+      body: RichText(
+        // Виджет RiachText может помочь - изменить стиль, только у отдельной части текста.
+        text: TextSpan(
+          // Контейнер - может использоваться для стилизации.
+          // Виджет TextSpan имеет св-ва text и children: <тип объектов которые передаются данному свойству>[],
+          style: GoogleFonts.lobster(
+            textStyle: TextStyle(
+              fontSize: 30.00,
+              // color: Color(0xFFA94AF3) // If I want to use the HEX color code.
+              color: Colors.yellowAccent,
+            ),
           ),
+          children: <TextSpan>[
+            TextSpan(text: 'Hello,'),
+            TextSpan(text: 'World', style: TextStyle(color: Colors.green[200])),
+            TextSpan(text: '!')
+            // TextSpan() - можно до бесконечности встраивать в каждый виджет и подвиджетbuild()
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Text("ADD"),
-      ),
+      floatingActionButton: FloatingActionButton(child: Text("ADD")),
       backgroundColor: Color(0x612FDFEE),
     );
   }
