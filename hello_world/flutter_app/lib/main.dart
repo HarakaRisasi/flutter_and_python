@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_app/customIcons.dart';
+
 
 void main() => runApp(HarakaTestApp());
 // runApp делает переданный ей виджет, корневым виджетом дерева.
@@ -36,9 +37,27 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: SvgPicture.asset("assets/img/image2vector.svg", alignment: Alignment, ),
-      // При использовании assets - не забыть расскоментировать assets во pubspec.yaml
-      floatingActionButton: FloatingActionButton(child: Text("ADD")),
+      body: IconButton(
+        icon: Icon(
+          MyFlutterApp.access_alarm,
+            // Был перечеркнутый квадрат вместо иконки, помогла остановка приложения (Ctrl+F2) и запуска (Shift+F10).
+        ),
+        color: Colors.blue,
+        iconSize: 100.0,
+        // onPresses - это callback который срабатывает при нажатии.
+        // () - синтаксис анонимной функции.
+        onPressed: () {
+          print("Button has been pressed.");
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+          child: Text("ADD"),
+        onPressed: (){
+            print("Hello, you did it?");
+        },
+        // onPressed: null, - если не требуется передавать классу колбэк то заполняем
+        // функцию значением null.
+      ),
       backgroundColor: Color(0x612FDFEE),
     );
   }
