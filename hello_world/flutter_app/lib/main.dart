@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() => runApp(HarakaTestApp());
 // runApp делает переданный ей виджет, корневым виджетом дерева.
@@ -35,26 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: RichText(
-        // Виджет RiachText может помочь - изменить стиль, только у отдельной части текста.
-        text: TextSpan(
-          // Контейнер - может использоваться для стилизации.
-          // Виджет TextSpan имеет св-ва text и children: <тип объектов которые передаются данному свойству>[],
-          style: GoogleFonts.lobster(
-            textStyle: TextStyle(
-              fontSize: 30.00,
-              // color: Color(0xFFA94AF3) // If I want to use the HEX color code.
-              color: Colors.yellowAccent,
-            ),
-          ),
-          children: <TextSpan>[
-            TextSpan(text: 'Hello,'),
-            TextSpan(text: 'World', style: TextStyle(color: Colors.green[200])),
-            TextSpan(text: '!')
-            // TextSpan() - можно до бесконечности встраивать в каждый виджет и подвиджетbuild()
-          ],
-        ),
-      ),
+      body: SvgPicture.asset("assets/img/image2vector.svg", alignment: Alignment, ),
+      // При использовании assets - не забыть расскоментировать assets во pubspec.yaml
       floatingActionButton: FloatingActionButton(child: Text("ADD")),
       backgroundColor: Color(0x612FDFEE),
     );
