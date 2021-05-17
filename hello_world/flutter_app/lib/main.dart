@@ -38,26 +38,49 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black38,
       ),
       body: Container(
-        color: Colors.lightGreen[500],
-        // height: 300,
-        // width: 300,
-        alignment: Alignment.center,
-        margin: EdgeInsets.all(20),
-        padding: EdgeInsets.all(50),
-        transform: Matrix4.rotationX(.12),
-        child: IconButton(
-          icon: Icon(
-            MyFlutterApp.access_alarm,
-            // Был перечеркнутый квадрат вместо иконки, помогла остановка приложения (Ctrl+F2) и запуска (Shift+F10).
+        child: Container(
+          child: IconButton(
+            icon: Icon(
+              MyFlutterApp.access_alarm,
+              // Был перечеркнутый квадрат вместо иконки, помогла остановка приложения (Ctrl+F2) и запуска (Shift+F10).
+            ),
+            color: Colors.deepOrange,
+            iconSize: 100.0,
+            // onPresses - это callback который срабатывает при нажатии.
+            // () - синтаксис анонимной функции.
+            onPressed: () {
+              print("Button has been pressed.");
+            },
           ),
-          color: Colors.blue,
-          iconSize: 100.0,
-          // onPresses - это callback который срабатывает при нажатии.
-          // () - синтаксис анонимной функции.
-          onPressed: () {
-            print("Button has been pressed.");
-          },
-        )
+          decoration: BoxDecoration(
+            color: Colors.blue[100],
+            // borderRadius: BorderRadius.circular(30),
+            shape: BoxShape.circle,
+            border: Border.all(
+              width: 4,
+              color: Colors.black12,
+            ),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black54,
+                  spreadRadius: 5,
+                  blurRadius: 3,
+                  offset: Offset(3, 3))
+            ],
+          ),
+        ),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          // gradient: RadialGradient(
+          //     colors: [
+          //       Colors.lightGreenAccent,
+          //       Colors.deepOrangeAccent,
+          //     ]
+          image: DecorationImage(
+            image: AssetImage("assets/img/space.jpg"),
+            fit: BoxFit.fill
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
