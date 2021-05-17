@@ -37,50 +37,46 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: Container(
-        child: Container(
-          child: IconButton(
-            icon: Icon(
-              MyFlutterApp.access_alarm,
-              // Был перечеркнутый квадрат вместо иконки, помогла остановка приложения (Ctrl+F2) и запуска (Shift+F10).
-            ),
-            color: Colors.deepOrange,
-            iconSize: 100.0,
-            // onPresses - это callback который срабатывает при нажатии.
-            // () - синтаксис анонимной функции.
-            onPressed: () {
-              print("Button has been pressed.");
-            },
+      body: Column(
+        // Колонки дают возможность разместить все виджеты на экране пропорционально.
+        // При том, контейнеры можно выравнивать, как по горизонтали так и по вертикали.
+        // В добавок это позволит сделать нужную разметку экрана Виджетами - контейнер,
+        // а позже, внутри размеченных областей перераспределить остальные виджеты.
+
+        // ! Так и собирается приложение. А после под него пишется БЭК.
+
+        // Выравнивание по оси.
+        //
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.end,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+        // Выравнивание по горизонтали.
+        // В некоторых случаях, ширина колонки это ширина самого широкого контейнера
+        //
+        // crossAxisAlignment: CrossAxisAlignment.end,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+
+        children: [
+          Container(
+            color: Colors.blue,
+            padding: EdgeInsets.all(30),
+            child: Text("1"),
           ),
-          decoration: BoxDecoration(
-            color: Colors.blue[100],
-            // borderRadius: BorderRadius.circular(30),
-            shape: BoxShape.circle,
-            border: Border.all(
-              width: 4,
-              color: Colors.black12,
-            ),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black54,
-                  spreadRadius: 5,
-                  blurRadius: 3,
-                  offset: Offset(3, 3))
-            ],
+          Container(
+            color: Colors.red,
+            padding: EdgeInsets.all(40),
+            child: Text("2"),
           ),
-        ),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          // gradient: RadialGradient(
-          //     colors: [
-          //       Colors.lightGreenAccent,
-          //       Colors.deepOrangeAccent,
-          //     ]
-          image: DecorationImage(
-            image: AssetImage("assets/img/space.jpg"),
-            fit: BoxFit.fill
-          ),
-        ),
+          Container(
+            color: Colors.green,
+            padding: EdgeInsets.all(50),
+            child: Text("3"),
+          )
+        ],
+
       ),
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
