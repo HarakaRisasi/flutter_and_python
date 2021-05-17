@@ -36,7 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: Align(
+      body: Padding(
+        // Padding - будет по 100 со всех сторон.
+        // padding: EdgeInsets.all(100) ,
+        // Padding fromLTRB - указывает расстояние со всех сторон.
+        padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
         child: IconButton(
           icon: Icon(
             MyFlutterApp.access_alarm,
@@ -50,10 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
             print("Button has been pressed.");
           },
         ),
-        // Перемещение в конкретную позицию.
-        alignment: Alignment.center,
-        // Перемещение в заданную координату.
-        // alignment: Alignment(1, -1),
       ),
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
