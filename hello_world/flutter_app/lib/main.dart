@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/customIcons.dart';
@@ -36,11 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: Padding(
-        // Padding - будет по 100 со всех сторон.
-        // padding: EdgeInsets.all(100) ,
-        // Padding fromLTRB - указывает расстояние со всех сторон.
-        padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
+      body: Container(
+        color: Colors.lightGreen[500],
+        // height: 300,
+        // width: 300,
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(20),
+        padding: EdgeInsets.all(50),
+        transform: Matrix4.rotationX(.12),
         child: IconButton(
           icon: Icon(
             MyFlutterApp.access_alarm,
@@ -53,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             print("Button has been pressed.");
           },
-        ),
+        )
       ),
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
