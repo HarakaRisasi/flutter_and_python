@@ -37,32 +37,27 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: Column(
-        // Колонки дают возможность разместить все виджеты на экране пропорционально.
-        // При том, контейнеры можно выравнивать, как по горизонтали так и по вертикали.
-        // В добавок это позволит сделать нужную разметку экрана Виджетами - контейнер,
-        // а позже, внутри размеченных областей перераспределить остальные виджеты.
-
-        // ! Так и собирается приложение. А после под него пишется БЭК.
-
-        // Выравнивание по оси.
+      // С помощью ROW можно распологать виджеты горизонтально.
+      body: Row(
+        // Предвижение по главной оси(Х)
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // Смещение виджетов к оси.
+        crossAxisAlignment: CrossAxisAlignment.end,
         //
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.end,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-        // Выравнивание по горизонтали.
-        // В некоторых случаях, ширина колонки это ширина самого широкого контейнера
         //
-        // crossAxisAlignment: CrossAxisAlignment.end,
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        // Линия выравнивания текста.
+        // crossAxisAlignment: CrossAxisAlignment.baseline,
+        //
+        // Выравнивание текста по нижней линии самого текста.
+        // textBaseline: TextBaseline.alphabetic,
+        // Выравнивание текста по нижней границе текстового пространства.
+        // textBaseline: TextBaseline.ideographic,
 
         children: [
           Container(
             color: Colors.blue,
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.all(50),
+            // Если в контейнере не содержиться объект, то контейнер автоматически заполняет собой все поле выделенное ему.
             child: Text("1"),
           ),
           Container(
