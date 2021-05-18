@@ -37,22 +37,27 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      // С помощью ROW можно распологать виджеты горизонтально.
-      body: Row(
-        // Предвижение по главной оси(Х)
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // Смещение виджетов к оси.
-        crossAxisAlignment: CrossAxisAlignment.end,
+      body: Column(
+        // ***********************************************************************************************////////////
+        // body: SizedBox()
+        // параметры:
+        // expand - расширяет поле виджета на максимум.
+        // fromSize - устанавливает размер child виджета по переданному аргументу в child - виджет size.
+        // shrink - уменьшает настолько на сколько возможно.
         //
-        //
-        // Линия выравнивания текста.
-        // crossAxisAlignment: CrossAxisAlignment.baseline,
-        //
-        // Выравнивание текста по нижней линии самого текста.
-        // textBaseline: TextBaseline.alphabetic,
-        // Выравнивание текста по нижней границе текстового пространства.
-        // textBaseline: TextBaseline.ideographic,
+        //   width: 300,
+        //   height: 300,
+        //   // width: double.infinity,
+        //   // height: double.infinity,
+        //   child: Container(
+        //     color: Colors.lightGreenAccent,
+        //     child: Text('Hello'),
+        //   ),
+        // ),
+        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<</////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             color: Colors.blue,
@@ -60,18 +65,31 @@ class _MyHomePageState extends State<MyHomePage> {
             // Если в контейнере не содержиться объект, то контейнер автоматически заполняет собой все поле выделенное ему.
             child: Text("1"),
           ),
+
+          // ***********************************************************************************************////////////
+          // Если нужно поменять расстояние между виджетами(получить пустое пространство).
+          // То между ними ставится SizedBox()
+          SizedBox(
+            height: 200,
+          ),
+          // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<</////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
           Container(
             color: Colors.red,
             padding: EdgeInsets.all(40),
             child: Text("2"),
           ),
+
+          SizedBox(
+            height: 30,
+          ),
+
           Container(
             color: Colors.green,
             padding: EdgeInsets.all(50),
             child: Text("3"),
           )
         ],
-
       ),
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
