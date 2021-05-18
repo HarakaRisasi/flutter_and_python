@@ -38,24 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black38,
       ),
       body: Column(
-        // ***********************************************************************************************////////////
-        // body: SizedBox()
-        // параметры:
-        // expand - расширяет поле виджета на максимум.
-        // fromSize - устанавливает размер child виджета по переданному аргументу в child - виджет size.
-        // shrink - уменьшает настолько на сколько возможно.
-        //
-        //   width: 300,
-        //   height: 300,
-        //   // width: double.infinity,
-        //   // height: double.infinity,
-        //   child: Container(
-        //     color: Colors.lightGreenAccent,
-        //     child: Text('Hello'),
-        //   ),
-        // ),
-        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<</////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -65,30 +47,34 @@ class _MyHomePageState extends State<MyHomePage> {
             // Если в контейнере не содержиться объект, то контейнер автоматически заполняет собой все поле выделенное ему.
             child: Text("1"),
           ),
-
-          // ***********************************************************************************************////////////
-          // Если нужно поменять расстояние между виджетами(получить пустое пространство).
-          // То между ними ставится SizedBox()
-          SizedBox(
-            height: 200,
+          // Что если в контейнере не обернутом виджетом Expanded находится много контента?
+          // Проблема решается с того, что этот контейнер оборачивается в Expanded.
+          // После чего используется его св-во Flex
+          // Flex - представляет собой Flex Factor значение которого по умолчанию равно 1
+          // Тут математика долей >>>
+          // - Если сумма долей всех контейнеров(в данном случае) = 3,
+          //   тоесть каждый контейнер занимает по 1\3 общего пространства.
+          //   А значит можно увеличить долю распределения у нужного контейнера.
+          // Например поднять ее значение Flex = 2, значит общая сумма долей теперь будет равна 4,
+          // а доля моего контейнера будет равна 2/4.
+          Expanded(
+            flex: 2,
+            child: Container(
+              color: Colors.red,
+              padding: EdgeInsets.all(50),
+              child: Text("22222222222222222222222",
+                  style: TextStyle(fontSize: 40)),
+            ),
           ),
-          // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<</////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-          Container(
-            color: Colors.red,
-            padding: EdgeInsets.all(40),
-            child: Text("2"),
+          // Заполнение виджетом всего доступного на главной оси пространства.
+          Expanded(
+            child: Container(
+              color: Colors.green,
+              padding: EdgeInsets.all(50),
+              child: Text("3"),
+            ),
           ),
-
-          SizedBox(
-            height: 30,
-          ),
-
-          Container(
-            color: Colors.green,
-            padding: EdgeInsets.all(50),
-            child: Text("3"),
-          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
