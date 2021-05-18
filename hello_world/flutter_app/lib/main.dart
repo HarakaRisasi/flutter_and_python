@@ -38,50 +38,72 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black38,
       ),
 
-      // В данной комбинации виджетов, все они были помещены внутрь контейнера,
-      // и разместились внурти его соответственно выравниванию.
-      body: Container(
-        color: Colors.black54,
-        // SizedBox - в данном случае является родительским виджетом,
-        // в соответствии с иерархией, его параметры изменят потомков.
-        width: 200,
-        height: 400,
+      body: Center(
+        child: Container(
+          color: Colors.lightGreen,
+          width: 400,
+          height: 400,
+          /**
+           * Устанавливает жесткие границы для виджетов внутри контейнера,
+           * те виджеты, что не влазят при RoW по горизонтали или при Column
+           * по вертикали, wrap выносит в следущий ряд\колонну.
+           * */
+          child: Wrap(
+            // Устанавливает направление (по какой оси) размещения виджетов,
+            // внутри контейнера.
+            direction: Axis.horizontal,
+            // При направлении главной оси .horizontal - spacing >>>
+            // Устанавливает пустоту между виджетами по горизонтали.
+            spacing: 20,
+            // Устанавливает пустоту между виджетами по вертикали.
+            runSpacing: 40,
+            // Соответственно при .vertical - run и runSpacing инвертируются.
 
-        // Stack - Позволяет наслаивать виджеты находящиеся по иерархии ниже его.
-        // !!! Поскольку во Flutter иерархия виджета позволяет влиять на тех кто ниже,
-        // поэтому можно видеть такой результат.
-        child: Stack(
-          // Выравнивание виджетов.
-          alignment: Alignment.center,
-          children: [
-            Container(
-              color: Colors.blue,
-              padding: EdgeInsets.all(150),
-              // Если в контейнере не содержиться объект, то контейнер автоматически заполняет собой все поле выделенное ему.
-              child: Text("1"),
-            ),
-            Container(
-              color: Colors.red,
-              padding: EdgeInsets.all(100),
-              child: Text("2"),
-            ),
+            /*
+            * Таким образом можно выровнять виджеты внутри контейнера, не только относительно
+            * оси, но также относительно сторон контейнера.**/
+            alignment: WrapAlignment.center,
+            // Работает по тому же принципу что и runSpacing, только выравнивает виджеты
+            // в противоположном для alignment направлении.
+            runAlignment: WrapAlignment.center,
 
-            // Position - позволяет менять позицию для конкретного виджета.
-            Positioned(
-              // от верхнего края контейнера.
-              top: -20,
-              // от левого края контейнера.
-              // bottom: 20,
-              left: 15,
-              width: 180,
+            // Выстраивает виджеты в направлении по вертикали (сверху вниз \ снизу вверх)
+            verticalDirection: VerticalDirection.up,
 
-              child: Container(
-                color: Colors.green,
-                padding: EdgeInsets.all(50),
-                child: Text("3"),
+            // Выстраивает виджеты в направлении по горизонтали (С лева на право \ с права налево)
+            textDirection: TextDirection.rtl,
+
+            children: [
+              Container(
+                color: Colors.black,
+                width: 100,
+                height: 100,
+                child: Text(
+                  "AB",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-            ),
-          ],
+              Container(
+                color: Colors.red,
+                width: 100,
+                height: 100,
+              ),
+              Container(
+                color: Colors.red,
+                width: 100,
+                height: 100,
+              ),
+              Container(
+                color: Colors.black,
+                width: 100,
+                height: 100,
+                child: Text(
+                  "BC",
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
