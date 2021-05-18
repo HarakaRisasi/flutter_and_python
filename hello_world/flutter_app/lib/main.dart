@@ -37,45 +37,52 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            color: Colors.blue,
-            padding: EdgeInsets.all(50),
-            // Если в контейнере не содержиться объект, то контейнер автоматически заполняет собой все поле выделенное ему.
-            child: Text("1"),
-          ),
-          // Что если в контейнере не обернутом виджетом Expanded находится много контента?
-          // Проблема решается с того, что этот контейнер оборачивается в Expanded.
-          // После чего используется его св-во Flex
-          // Flex - представляет собой Flex Factor значение которого по умолчанию равно 1
-          // Тут математика долей >>>
-          // - Если сумма долей всех контейнеров(в данном случае) = 3,
-          //   тоесть каждый контейнер занимает по 1\3 общего пространства.
-          //   А значит можно увеличить долю распределения у нужного контейнера.
-          // Например поднять ее значение Flex = 2, значит общая сумма долей теперь будет равна 4,
-          // а доля моего контейнера будет равна 2/4.
-          Expanded(
-            flex: 2,
-            child: Container(
-              color: Colors.red,
-              padding: EdgeInsets.all(50),
-              child: Text("22222222222222222222222",
-                  style: TextStyle(fontSize: 40)),
-            ),
-          ),
 
-          // Заполнение виджетом всего доступного на главной оси пространства.
-          Expanded(
-            child: Container(
-              color: Colors.green,
-              padding: EdgeInsets.all(50),
-              child: Text("3"),
+      // В данной комбинации виджетов, все они были помещены внутрь контейнера,
+      // и разместились внурти его соответственно выравниванию.
+      body: Container(
+        color: Colors.black54,
+        // SizedBox - в данном случае является родительским виджетом,
+        // в соответствии с иерархией, его параметры изменят потомков.
+        width: 200,
+        height: 400,
+
+        // Stack - Позволяет наслаивать виджеты находящиеся по иерархии ниже его.
+        // !!! Поскольку во Flutter иерархия виджета позволяет влиять на тех кто ниже,
+        // поэтому можно видеть такой результат.
+        child: Stack(
+          // Выравнивание виджетов.
+          alignment: Alignment.center,
+          children: [
+            Container(
+              color: Colors.blue,
+              padding: EdgeInsets.all(150),
+              // Если в контейнере не содержиться объект, то контейнер автоматически заполняет собой все поле выделенное ему.
+              child: Text("1"),
             ),
-          ),
-        ],
+            Container(
+              color: Colors.red,
+              padding: EdgeInsets.all(100),
+              child: Text("2"),
+            ),
+
+            // Position - позволяет менять позицию для конкретного виджета.
+            Positioned(
+              // от верхнего края контейнера.
+              top: -20,
+              // от левого края контейнера.
+              // bottom: 20,
+              left: 15,
+              width: 180,
+
+              child: Container(
+                color: Colors.green,
+                padding: EdgeInsets.all(50),
+                child: Text("3"),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
