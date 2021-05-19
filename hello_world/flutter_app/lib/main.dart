@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/customIcons.dart';
+import 'package:flutter_app/event.dart';
 
 void main() => runApp(HarakaTestApp());
 // runApp делает переданный ей виджет, корневым виджетом дерева.
@@ -33,16 +34,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // Final - говорит о том, что значение в список будет установлено только один раз,
   // и в дальнейшем изменяться не будет.
-  final List<String> events = [
-    "Events 1",
-    "Events 2",
-    "Events 3",
-    "Events 4",
-    "Events 5",
-    "Events 6",
-    "Events 7",
-    "Events 8",
-    "Events 9",
+  // <T> - явно указывается тип. Его можно и не указывать.
+  //*List - это аналог массива в других ЯП.
+  final List<Event> events = [
+    Event(name: 'name1', location: 'location1', startDateTime: DateTime.now()),
+    Event(name: 'name2', location: 'location2', startDateTime: DateTime.now()),
+    Event(name: 'name3', location: 'location3', startDateTime: DateTime.now()),
+    Event(name: 'name4', location: 'location4', startDateTime: DateTime.now()),
+    Event(name: 'name5', location: 'location5', startDateTime: DateTime.now()),
+    Event(name: 'name6', location: 'location6', startDateTime: DateTime.now()),
+    Event(name: 'name7', location: 'location7', startDateTime: DateTime.now()),
+    Event(name: 'name8', location: 'location8', startDateTime: DateTime.now()),
   ];
 
   @override
@@ -55,56 +57,29 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black38,
       ),
 
-      // Задача - получить список.
-      // body: ListView(
-      //   padding: EdgeInsets.all(40),
-
-      // Можно определить физику прокрутки. Тоесть, как список будет себя вести при достижении максимальной степени прокрутки.
-      // physics: BouncingScrollPhysics(),
-      //* Возможно также полностью остановить прокрутку.nn
-      // physics: NeverScrollableScrollPhysics(),
-
-      //* Меняет направления скролинга виджетов (в данном случае - Горизонтальное)
-      // ! По умолчанию (если не использовать scrollDirection) - вертикальное.
-      // scrollDirection: Axis.horizontal,
-
-      // Изменить порядок отрисовки элементов в списке.
-      // reverse: true,
-
-      // Задача: Пройтись по списку строк и из каждой строки получить виджет (чтобы сделать список виджетов).
-      // map - используется для применения функции для каждого эл-та списка.
-      // *е - это строка.
-      // * Так как нужен виджет - то воспользуюсь виджетом Text(передам строку как аргумент)
-      // * Метод toList() - представляет список.
-      //   children: events
-      //       .map((e) => Text(
-      //             e,
-      //             style: TextStyle(fontSize: 50),
-      //           ))
-      //       .toList(),
-      // ),
-
-      // Конструктор для работы с большими коллекциями. Так как создаются только те виджеты, которые в данный момент на
-      // экране.
-      // При скроле - элементы, что уходят за границу уничтожаются, а новые будут воссозданы.
-      // ! Прочерк ставится вместо того параметра, который должен быть передан для этой функции, но
-      //   по какой-то причине его не нужно передавать.
       body: ListView.builder(
+        //* Так как был изменен главный виджет ListView.separate на ListView.builder
+        //* нужно сделать HOT RESET.
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
 
         // itemCount - нужен для устранения ошибки - выпадания за пределы списка элементов.
         // Считает кол-во элементов списка и выводит их.
         itemCount: events.length,
-        
+
         itemBuilder: (_, index) => Text(
           // В функции нет элемента, второй параметр - это Index.
           // выводит элементы списка по их индексу
-          events[index],
 
-          //выводит индекс элементов списка как строковый тип данных.
-          // index.toString(),
-          style: TextStyle(fontSize: 80),
+          //* Так как теперь элементами коллекции являются события - то,
+          // когда по индексу получаю события.
+          // Можно вывести по одному методу объекта класса (в данном случае"Event").
+          // events[index].name,
+          // events[index].startDateTime.toString()
+
+          // Но также можно вывести и несколько\все методы объекта класса Event.
+          "$index\n ${events[index].name} - ${events[index].location} - ${events[index].startDateTime.toString()}",
+          style: TextStyle(fontSize: 30),
         ),
       ),
 
