@@ -50,39 +50,55 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Реализует базовую структуру визуального макета материального дизайна.
       appBar: AppBar(
         title: Text("Flutter tutorial", style: GoogleFonts.raleway()),
         centerTitle: true,
         backgroundColor: Colors.black38,
       ),
-
       body: ListView.builder(
-        //* Так как был изменен главный виджет ListView.separate на ListView.builder
-        //* нужно сделать HOT RESET.
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
-
-        // itemCount - нужен для устранения ошибки - выпадания за пределы списка элементов.
-        // Считает кол-во элементов списка и выводит их.
         itemCount: events.length,
 
-        itemBuilder: (_, index) => Text(
-          // В функции нет элемента, второй параметр - это Index.
-          // выводит элементы списка по их индексу
-
-          //* Так как теперь элементами коллекции являются события - то,
-          // когда по индексу получаю события.
-          // Можно вывести по одному методу объекта класса (в данном случае"Event").
-          // events[index].name,
-          // events[index].startDateTime.toString()
-
-          // Но также можно вывести и несколько\все методы объекта класса Event.
-          "$index\n ${events[index].name} - ${events[index].location} - ${events[index].startDateTime.toString()}",
-          style: TextStyle(fontSize: 30),
+        // Card - создает Matirial Disign card - оборачивает вложенный виджет в форму.
+        itemBuilder: (_, index) => Card(
+          // Применить цвет для виджета (*"Лучше все цвета хранить в отдельном файле")
+          color: Colors.lightGreenAccent,
+          // Применить эффект, который как бы поднимает виджет над базовым пространством.
+          elevation: 4,
+          // Изменение цвета тени.
+          shadowColor: Colors.blue,
+          // Увеличение вертикального марджина.
+          margin: EdgeInsets.all(10),
+          // Изменение вида Border.
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Column(
+            children: [
+              // Текстовый виджет.
+              Text(
+                "${events[index].name}",
+                style: TextStyle(fontSize: 30),
+              ),
+              // Виджет размещающий контент в строку.
+              Row(
+                // Выравнивание виджета по центру.
+                mainAxisAlignment: MainAxisAlignment.center,
+                // Заполнение строки.
+                children: [
+                  // Получить свойства объекта класса Event.
+                  Text(events[index].location),
+                  // Поставить между виджетами пустое пространство.
+                  SizedBox(
+                    width: 10,
+                  ),
+                  // Получить свойства объекта класса Event.
+                  Text(events[index].startDateTime.toString()),
+                ],
+              )
+            ],
+          ),
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
         onPressed: () {
@@ -91,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
         // onPressed: null, - если не требуется передавать классу колбэк то заполняем
         // функцию значением null.
       ),
-      backgroundColor: Color(0x612FDFEE),
     );
   }
 }
