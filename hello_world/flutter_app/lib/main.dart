@@ -8,6 +8,9 @@ void main() => runApp(HarakaTestApp());
 // Поскольку MaterialApp - это высокоуровневый виджет, то передаем его непосредственно в ф-ю runApp().
 
 class HarakaTestApp extends StatelessWidget {
+  // HarakaTestApp - это StateLess виджет - он не может изменяться в runTime режиме.
+  // Соответственно в него нельзя вносить изменения без полной пересборки приложения.
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Final - говорит о том, что значение в список будет установлено только один раз,
+  // и в дальнейшем изменяться не будет.
+  final List<String> events = [
+    "Events 1",
+    "Events 2",
+    "Events 3",
+    "Events 4",
+    "Events 5",
+    "Events 6",
+    "Events 7",
+    "Events 8",
+    "Events 9",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,74 +55,59 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black38,
       ),
 
-      body: Center(
-        child: Container(
-          color: Colors.lightGreen,
-          width: 400,
-          height: 400,
-          /**
-           * Устанавливает жесткие границы для виджетов внутри контейнера,
-           * те виджеты, что не влазят при RoW по горизонтали или при Column
-           * по вертикали, wrap выносит в следущий ряд\колонну.
-           * */
-          child: Wrap(
-            // Устанавливает направление (по какой оси) размещения виджетов,
-            // внутри контейнера.
-            direction: Axis.horizontal,
-            // При направлении главной оси .horizontal - spacing >>>
-            // Устанавливает пустоту между виджетами по горизонтали.
-            spacing: 20,
-            // Устанавливает пустоту между виджетами по вертикали.
-            runSpacing: 40,
-            // Соответственно при .vertical - run и runSpacing инвертируются.
+      // Задача - получить список.
+      // body: ListView(
+      //   padding: EdgeInsets.all(40),
 
-            /*
-            * Таким образом можно выровнять виджеты внутри контейнера, не только относительно
-            * оси, но также относительно сторон контейнера.**/
-            alignment: WrapAlignment.center,
-            // Работает по тому же принципу что и runSpacing, только выравнивает виджеты
-            // в противоположном для alignment направлении.
-            runAlignment: WrapAlignment.center,
+      // Можно определить физику прокрутки. Тоесть, как список будет себя вести при достижении максимальной степени прокрутки.
+      // physics: BouncingScrollPhysics(),
+      //* Возможно также полностью остановить прокрутку.nn
+      // physics: NeverScrollableScrollPhysics(),
 
-            // Выстраивает виджеты в направлении по вертикали (сверху вниз \ снизу вверх)
-            verticalDirection: VerticalDirection.up,
+      //* Меняет направления скролинга виджетов (в данном случае - Горизонтальное)
+      // ! По умолчанию (если не использовать scrollDirection) - вертикальное.
+      // scrollDirection: Axis.horizontal,
 
-            // Выстраивает виджеты в направлении по горизонтали (С лева на право \ с права налево)
-            textDirection: TextDirection.rtl,
+      // Изменить порядок отрисовки элементов в списке.
+      // reverse: true,
 
-            children: [
-              Container(
-                color: Colors.black,
-                width: 100,
-                height: 100,
-                child: Text(
-                  "AB",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              Container(
-                color: Colors.red,
-                width: 100,
-                height: 100,
-              ),
-              Container(
-                color: Colors.red,
-                width: 100,
-                height: 100,
-              ),
-              Container(
-                color: Colors.black,
-                width: 100,
-                height: 100,
-                child: Text(
-                  "BC",
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
-            ],
-          ),
+      // Задача: Пройтись по списку строк и из каждой строки получить виджет (чтобы сделать список виджетов).
+      // map - используется для применения функции для каждого эл-та списка.
+      // *е - это строка.
+      // * Так как нужен виджет - то воспользуюсь виджетом Text(передам строку как аргумент)
+      // * Метод toList() - представляет список.
+      //   children: events
+      //       .map((e) => Text(
+      //             e,
+      //             style: TextStyle(fontSize: 50),
+      //           ))
+      //       .toList(),
+      // ),
+
+      // Конструктор для работы с большими коллекциями. Так как создаются только те виджеты, которые в данный момент на
+      // экране.
+      // При скроле - элементы, что уходят за границу уничтожаются, а новые будут воссозданы.
+      // ! Прочерк ставится вместо того параметра, который должен быть передан для этой функции, но
+      //   по какой-то причине его не нужно передавать.
+      body: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.all(20),
+
+        // itemCount - нужен для устранения ошибки - выпадания за пределы списка элементов.
+        // Считает кол-во элементов списка и выводит их.
+        itemCount: events.length,
+        
+        itemBuilder: (_, index) => Text(
+          // В функции нет элемента, второй параметр - это Index.
+          // выводит элементы списка по их индексу
+          events[index],
+
+          //выводит индекс элементов списка как строковый тип данных.
+          // index.toString(),
+          style: TextStyle(fontSize: 80),
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         child: Text("ADD"),
         onPressed: () {
