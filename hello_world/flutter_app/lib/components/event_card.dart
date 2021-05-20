@@ -2,13 +2,23 @@ import 'package:flutter_app/models/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class EventCard extends StatelessWidget {
+class EventCard extends StatefulWidget {
   const EventCard({
     Key? key,
     required this.event,
   }) : super(key: key);
 
   final Event event;
+
+  @override
+  // Создаю State который может изменяться, при помощи метода
+  // который может изменяться - createState().
+  _EventCardState createState() => _EventCardState();
+}
+// _ - Делает переменную приватной.
+class _EventCardState extends State<EventCard> {
+  bool _isEnabled = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +34,15 @@ class EventCard extends StatelessWidget {
 
       // Создает список плитки.
       child: ListTile(
+        enabled: _isEnabled,
         // Заголовок
         title: Text(
-          event.name,
+          widget.event.name,
           // Изменение стиля заголовка (шрифт)
           style: TextStyle(fontSize: 30),
         ),
         // Дополнительный контент - отображается ниже title.
-        subtitle: Text('${event.location} ${event.startDateTime.toString()}'),
+        subtitle: Text('${widget.event.location} ${widget.event.startDateTime.toString()}'),
         // Виджет (иконка), отображается перед title.
         leading: Icon(
           Icons.local_activity,
@@ -40,18 +51,18 @@ class EventCard extends StatelessWidget {
         ),
         // Виджет (иконка), отображается после title.
         trailing: IconButton(
-          icon: Icon(Icons.edit),
+          icon: _isEnabled ? Icon(Icons.lock_outline): Icon(Icons.lock_open),
           // Повесил колбэк на виджет.
-          onPressed: null,
+          onPressed: () => setState(() => _isEnabled = !_isEnabled),
         ),
 
         // Повесить колбэк - на саму карточку, чтобы он срабатывал при нажатии.
         // В консоль будет выводится информация (при помощи функции), когда пользователь коснется плитки.
         // * Это можно использовать, когда обдумываешь как делать логирование действий пользователя.
-        onTap: () => print("${event.name} - tap!"),
+        onTap: () => print("${widget.event.name} - tap!"),
 
         // Колбэк на более долгое нажатие.
-        onLongPress: () => print("${event.name} - longPress!"),
+        onLongPress: () => print("${widget.event.name} - longPress!"),
 
         // Disable на все нажатия.
         // enabled: false,
