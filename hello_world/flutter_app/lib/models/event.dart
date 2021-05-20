@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class Event {
   // late - говорит о том, что переменная будет инициализирована позже.
   // У события должно быть название.
