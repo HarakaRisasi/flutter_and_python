@@ -51,20 +51,30 @@ import 'package:flutter/material.dart';
 
 // - Создаю функцию main()
 // - в ней вызываю тот виджет, который будет отображаться при старте приложения.
-void main() => runApp(SimpleWidget());
+// Все виджеты наследуется от класса Widget.
+void main() => runApp(ScreenWidget());
 
-class ScreeWidget extends StatelessWidget {
-  const ScreeWidget({Key key}) : super(key: key);
+class ScreenWidget extends StatelessWidget {
+  const ScreenWidget({Key key}) : super(key: key);
   // Материальный дизайн - это подход к дизайну, который успешно объединил лучшие черты пользовательского опыта и хороший дизайн.
   @override
   Widget build(BuildContext context) {
+    // BuildContext -это: Дескриптор расположения виджета в дереве виджетов.
+    // context -это экземпляр BuildContext , который передается конструктору виджета,
+    // чтобы он знал, где он находится внутри дерева виджетов вашего приложения.
+
     // MaterialApp виджет обеспечивает довольно много функциональных возможностей , с поддержкой тем, навигации и локализации.
     return MaterialApp(
-    // На данный момент мы устанавливаем только свойство home , указывая первый экран / виджет для отображения - Scaffold
-      // home - виджет оформления.
-      // Scaffold() - слой представления(на нем располагаются виджеты элементов и оформления).
+    // На данный момент мы устанавливаем только свойство home , указывая первый экран/виджет для отображения - Scaffold.
+      // home. Этот параметр задает базовый виджет, который будет отображаться в MaterialApp при загрузке.
+      // Scaffold() - слой представления - слой взаимодействия с внешним миром.(на нем располагаются виджеты элементов и оформления).
+      // Scaffold. Это еще один виджет, который применяется для создания интерфейса в стиле Material Design.
+      // body - он задает основное содержимое Scaffold в виде другого виджета.
       home: Scaffold(
-        appBar: AppBar,
+        appBar: AppBar(
+          // свойство виджета AppBar - title: принимает значение - const Text("HARAKA PROJECT"),
+          title: const Text("HARAKA PROJECT"),
+        ),
       ),
     );
   }
@@ -73,20 +83,25 @@ class ScreeWidget extends StatelessWidget {
 
 // Создаю класс, который наследуется от StatelessWidget
 class SimpleWidget extends StatelessWidget {
-  // Метод переопределяет объявление методов в базовом классе.
+  // Аннотация, которая означает, что метод переопределяет объявление методов в базовом классе.
   @override
   // Наследуясь от класса StatelessWidget необходимо переопределить метод build.
+  // Каждый виджет во Flutter создается из метода build, и каждый метод сборки принимает в качестве аргумента BuildContext.
   // Двоеточие ":" - обратится в конструктор класса и передать туда аргументы.
   Widget build(BuildContext context) {
     // Оборачиваю виджет Text в контейнер.
+    // новый виджет! <div> в мире Flutter'а
     return Container(
         //child Дочерний элемент, содержащийся в контейнере.
+        // child представляет вложенный виджет.
         child: Center(
           // Виджет build() будет возвращать виджет Text()
           // Передаю в конструктор строку и указываю направление текста.
             child: Text(
-      "Hello!",
-      textDirection: TextDirection.ltr,
-    )));
+              "Hello!",
+              textDirection: TextDirection.ltr,
+            )));
+    // Когда запустится приложение, по сути на экран выйдет виджет Container
+    // со свойством child (представляет вложенный виджет - в данном случае виджет Center) -> ...
   }
 }
